@@ -1,7 +1,7 @@
 PROJECT_DIR=$GOPATH/src/github.com/abitofhelp/abohapis
 PROTO_DIR=$(PROJECT_DIR)/proto
 
-.PHONY:buflist 1.bufclean 2.buflint 3.bufgen 4.bufbld cratelist 1.cratepub_dryrun 2.cratepub
+.PHONY:baz_build_all baz_clean baz_go_command baz_list baz_run_client baz_tidy
 
 baz_tidy: baz_clean
 	@rm proto/abitofhelp/api/blob/v5/BUILD.bazel \

@@ -1,4 +1,4 @@
-module github.com/abitofhelp/abitofhelpapis
+module github.com/abitofhelp/go-bazel-nonbsr
 
 go 1.21
 
