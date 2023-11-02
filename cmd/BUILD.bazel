@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "myapp_lib",
+    srcs = ["myapp.go"],
+    importpath = "gitlab.com/abitofhelp/abohapis/cmd",
+    visibility = ["//visibility:private"],
+    deps = [],
+)
+
+go_binary(
+    name = "myapp",
+    embed = [":myapp_lib"],
+    visibility = ["//visibility:public"],
+)
