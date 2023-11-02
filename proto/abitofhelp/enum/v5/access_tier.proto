@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package abitofhelp.enum.v5;
+
+enum AccessTier {
+  ACCESS_TIER_UNSPECIFIED = 0;
+  ACCESS_TIER_ARCHIVE = 1;
+  ACCESS_TIER_COOL = 2;
+  ACCESS_TIER_HOT = 3;
+}
