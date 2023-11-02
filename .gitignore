@@ -663,3 +663,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/bazel,go,macos,windows,linux,kotlin,java,dotnetcore,csharp,visualstudiocode,goland+all
+/bazel-abohapis/.ijwb/
+/bazel-abohapis/bazel-*/
