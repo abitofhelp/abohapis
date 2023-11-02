@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package abitofhelp.enum.v5;
 
+option go_package = "github.com/abitofhelp/abohapis";
+
 enum AccessTier {
   ACCESS_TIER_UNSPECIFIED = 0;
   ACCESS_TIER_ARCHIVE = 1;

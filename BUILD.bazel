@@ -1,11 +1,20 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
-# Generate the .pb.go files ahead of time and using those .go files exclusively
-# instead of using go_proto_library. This may be a better option for established
-# Go projects that also need to build with go build.
-#### gazelle:proto disable_global
-
-##### gazelle:prefix github.com/abitofhelp/abohapis
+#
+## Generate the .pb.go files ahead of time and using those .go files exclusively
+## instead of using go_proto_library. This may be a better option for established
+## Go projects that also need to build with go build.
+##### gazelle:proto disable_global
+#
+# gazelle:exclude vendor
+# gazelle:exclude third_party
+# gazelle:exclude .bazelci
+# gazelle:exclude .bcr
+# gazelle:exclude .idea
+# gazelle:exclude .github
+# gazelle:exclude .vscode
+# gazelle:go_naming_convention import_alias
+# gazelle:prefix github.com/abitofhelp/abohapis
 gazelle(name = "gazelle")
 
 gazelle(
@@ -19,7 +28,49 @@ gazelle(
     command = "update-repos",
 )
 
-# gazelle:resolve proto proto google/rpc/status.proto @googleapis//google/rpc:status_proto
-# gazelle:resolve proto go google/rpc/status.proto  @org_golang_google_genproto//googleapis/rpc/status
-# gazelle:resolve proto google/longrunning/operations.proto @googleapis//google/longrunning:operations_proto
-# gazelle:resolve proto go google/longrunning/operations.proto @org_golang_google_genproto//googleapis/longrunning
+## Setup googleapis.
+## https://github.com/bazelbuild/rules_go/releases/tag/v0.41.0
+## gazelle:resolve proto    google/api/field_behavior.proto      @googleapis//google/api:field_behavior_proto
+## gazelle:resolve proto go google/api/field_behavior.proto      @org_golang_google_genproto//googleapis/api/annotations
+## gazelle:resolve proto    google/api/resource.proto            @googleapis//google/api:resource_proto
+## gazelle:resolve proto go google/api/resource.proto            @org_golang_google_genproto//googleapis/api/annotations
+## gazelle:resolve proto    google/longrunning/operations.proto  @googleapis//google/longrunning:operations_proto
+## gazelle:resolve proto go google/longrunning/operations.proto  @org_golang_google_genproto//googleapis/longrunning
+## gazelle:resolve proto    google/rpc/code.proto                @googleapis//google/rpc:code_proto
+## gazelle:resolve proto go google/rpc/code.proto                @org_golang_google_genproto//googleapis/rpc/code
+## gazelle:resolve proto    google/rpc/status.proto              @googleapis//google/rpc:status_proto
+## gazelle:resolve proto go google/rpc/status.proto              @org_golang_google_genproto//googleapis/rpc/status
+#
+## gazelle:resolve proto    google/type/date.proto               @googleapis//google/type:date_proto
+## gazelle:resolve proto go google/type/date.proto               @org_golang_google_genproto//googleapis/type/date
+## gazelle:resolve proto    google/type/decimal.proto            @googleapis//google/type:decimal_proto
+## gazelle:resolve proto go google/type/decimal.proto            @org_golang_google_genproto//googleapis/type/decimal
+## gazelle:resolve proto    google/type/interval.proto           @googleapis//google/type:interval_proto
+## gazelle:resolve proto go google/type/interval.proto           @org_golang_google_genproto//googleapis/type/interval
+## gazelle:resolve proto    google/type/latlng.proto             @googleapis//google/type:latlng_proto
+## gazelle:resolve proto go google/type/latlng.proto             @org_golang_google_genproto//googleapis/type/latlng
+## gazelle:resolve proto    google/type/money.proto              @googleapis//google/type:money_proto
+## gazelle:resolve proto go google/type/money.proto              @org_golang_google_genproto//googleapis/type/money
+## gazelle:resolve proto    google/type/postal_address.proto     @googleapis//google/type:postal_address_proto
+## gazelle:resolve proto go google/type/postal_address.proto     @org_golang_google_genproto//googleapis/type/postaladdress
+## gazelle:resolve proto    google/type/timeofday.proto          @googleapis//google/type:timeofday_proto
+## gazelle:resolve proto go google/type/timeofday.proto          @org_golang_google_genproto//googleapis/type/timeofday
+#
+#load("@rules_proto//proto:defs.bzl", "proto_library")
+#
+#proto_library(
+#    name = "monitoring_api_proto",
+#    srcs = glob(["v1/*.proto"]),
+#    visibility = ["//visibility:public"],
+#    deps = [
+#        "@com_google_protobuf//:any_proto",
+#        "@com_google_protobuf//:duration_proto",
+#        "@com_google_protobuf//:empty_proto",
+#        "@com_google_protobuf//:field_mask_proto",
+#        "@com_google_protobuf//:timestamp_proto",
+#        "@go_googleapis//google/api:annotations_proto",
+#        "@go_googleapis//google/api:client_proto",
+#        "@go_googleapis//google/api:field_behavior_proto",
+#        "@go_googleapis//google/api:resource_proto",
+#    ],
+#)
