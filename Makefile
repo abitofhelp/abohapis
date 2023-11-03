@@ -25,8 +25,8 @@ baz_run_client:
 baz_go_command:
 	@bazel run @io_bazel_rules_go//go -- build ./...
 
-#baz_test:
-#	@bazel test //...
+baz_test:
+	@bazel test //...
 
 1.gazelle_generate_repos:
 	@bazel run //:gazelle

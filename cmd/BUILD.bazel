@@ -1,22 +1,22 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
-
-go_library(
-    name = "myapp_lib",
-    srcs = ["myapp.go"],
-    importpath = "gitlab.com/abitofhelp/abohapis/cmd",
-    visibility = ["//visibility:private"],
-    deps = [],
-)
-
-go_binary(
-    name = "myapp",
-    embed = [":cmd_lib"],
-    visibility = ["//visibility:public"],
-)
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 go_library(
     name = "cmd_lib",
     srcs = ["myapp.go"],
     importpath = "github.com/abitofhelp/abohapis/cmd",
     visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "cmd",
+    embed = [":cmd_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "cmd_test",
+    srcs = ["myapp_test.go"],
+    embed = [":cmd_lib"],
+    deps = [],
+    #["@com_github_stretchr_testify//assert:go_default_library"],
 )

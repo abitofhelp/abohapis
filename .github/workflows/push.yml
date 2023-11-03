@@ -1,0 +1,59 @@
+name: Push Changes
+on: push
+permissions:
+  contents: write
+  packages: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Environment Variables
+        run: |
+          export GOPRIVATE=github.com/ingios,go.buf.build
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@main
+
+      - name: Check Cosign installation
+        run: cosign version
+
+      - name: Check-out Source
+        uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 0            # See: https://goreleaser.com/ci/actions/
+
+      - name: Bazel Cache
+        id: bazel-cache
+        uses: actions/cache@v3
+        env:
+          version: 5.0.0
+        with:
+          path: |
+            ~/.cache/bazel
+          key: ${{ runner.os }}-{{ env.version }}-bazel-cache
+
+      - name: Install bazelisk
+        run: |
+          curl -LO "https://github.com/bazelbuild/bazelisk/releases/download/v1.18.0/bazelisk-linux-amd64"
+          mkdir -p "${GITHUB_WORKSPACE}/bin/"
+          mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
+          chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
+
+      - name: Build
+        run: |
+          "${GITHUB_WORKSPACE}/bin/bazel" build //...
+
+      - name: Test
+        run: |
+          "${GITHUB_WORKSPACE}/bin/bazel" test //...
+
+#      - name: Run GoReleaser for IngiosApis
+#        uses: goreleaser/goreleaser-action@v5.0.0
+#        with:
+#          # either 'goreleaser' (default) or 'goreleaser-pro'
+#          distribution: goreleaser
+#          version: latest
+#          args: "release --clean"
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GORELEASER_TOKEN }}
+#          COSIGN_PWD: ${{ secrets.COSIGN_PWD }}
