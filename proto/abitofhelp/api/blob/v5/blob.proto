@@ -13,7 +13,8 @@ message BlobMetadata {
   string sha256_hash = 2;
   uint64 size = 3;
   string uri = 4;
-  //google.protobuf.Timestamp last_edit = 5;
+  abitofhelp.enum.v5.AccessTier access_tier = 5;
+  //google.protobuf.Timestamp last_edit = 6;
 }
 
 message DownloadByUriRequest {
