@@ -4,16 +4,16 @@ package abitofhelp.api.blob.v5;
 
 option go_package = "github.com/abitofhelp/abohapis";
 
-import "google/api/annotations.proto";
-import "google/protobuf/timestamp.proto";
-import "abitofhelp/enum/v5/access_tier.proto";
+//import "google/api/annotations.proto";
+//import "google/protobuf/timestamp.proto";
+import "proto/abitofhelp/enum/v5/access_tier.proto";
 
 message BlobMetadata {
   uint64 blocks = 1;
   string sha256_hash = 2;
   uint64 size = 3;
   string uri = 4;
-  google.protobuf.Timestamp last_edit = 5;
+  //google.protobuf.Timestamp last_edit = 5;
 }
 
 message DownloadByUriRequest {
