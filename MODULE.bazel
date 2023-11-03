@@ -22,3 +22,7 @@ go_deps = use_extension("//:extensions.bzl", "go_deps")
 go_deps.from_file(go_mod = "//:go.mod")
 # Register the Go SDK installed on the host.
 go_sdk.host()
+
+
+write_to_sources = use_extension("//:write_to_sources.bzl", "sh_binary")
+write_to_sources.write_file()
