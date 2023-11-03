@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package abitofhelp.api.blob.v5;
 
-option go_package = "github.com/abitofhelp/abohapis";
+//option go_package = "github.com/abitofhelp/abohapis";
 
 //import "google/api/annotations.proto";
 //import "google/protobuf/timestamp.proto";

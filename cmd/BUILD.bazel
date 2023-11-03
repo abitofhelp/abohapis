@@ -10,6 +10,13 @@ go_library(
 
 go_binary(
     name = "myapp",
-    embed = [":myapp_lib"],
+    embed = [":cmd_lib"],
     visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "cmd_lib",
+    srcs = ["myapp.go"],
+    importpath = "github.com/abitofhelp/abohapis/cmd",
+    visibility = ["//visibility:private"],
 )

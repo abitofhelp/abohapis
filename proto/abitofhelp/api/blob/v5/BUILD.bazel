@@ -3,24 +3,24 @@ load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 
 proto_library(
-    name = "abohapis_proto",
+    name = "abitofhelp_api_blob_v5_proto",
     srcs = ["blob.proto"],
     visibility = ["//visibility:public"],
-    deps = ["//proto/abitofhelp/enum/v5:abohapis_proto"],  #v5_proto"],
+    deps = ["//proto/abitofhelp/enum/v5:abitofhelp_enum_v5_proto"],
 )
 
 go_proto_library(
-    name = "abohapis_go_proto",
+    name = "abitofhelp_api_blob_v5_go_proto",
     compilers = ["@rules_go//proto:go_grpc"],
-    importpath = "github.com/abitofhelp/abohapis",
-    proto = ":abohapis_proto",
+    importpath = "github.com/abitofhelp/abohapis/proto/abitofhelp/api/blob/v5",
+    proto = ":abitofhelp_api_blob_v5_proto",
     visibility = ["//visibility:public"],
-    deps = ["//proto/abitofhelp/enum/v5:abohapis_go_proto"],  #access_tier_proto"],
+    deps = ["//proto/abitofhelp/enum/v5:enum"],
 )
 
 go_library(
-    name = "abohapis",
-    embed = [":abohapis_go_proto"],
-    importpath = "github.com/abitofhelp/abohapis",
+    name = "blob",
+    embed = [":abitofhelp_api_blob_v5_go_proto"],
+    importpath = "github.com/abitofhelp/abohapis/proto/abitofhelp/api/blob/v5",
     visibility = ["//visibility:public"],
 )
