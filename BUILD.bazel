@@ -1,3 +1,4 @@
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
 load("@gazelle//:def.bzl", "gazelle")
 
 # gazelle:prefix github.com/abitofhelp/abohapis
@@ -12,4 +13,13 @@ gazelle(
         #"-build_file_proto_mode=disable_global",
     ],
     command = "update-repos",
+)
+
+buildifier(
+    name = "buildifier.check",
+    exclude_patterns = [
+        "./.git/*",
+    ],
+    lint_mode = "warn",
+    mode = "diff",
 )

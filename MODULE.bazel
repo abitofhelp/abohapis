@@ -4,6 +4,8 @@ module(
     compatibility_level = 1,
 )
 
+bazel_dep(name = "buildifier_prebuilt", version = "6.3.3", dev_dependency = True)
+
 bazel_dep(name = "gazelle", version = "0.33.0")
 bazel_dep(name = "grpc", version = "1.48.1")
 bazel_dep(name = "protobuf", version = "21.7", repo_name = "com_google_protobuf")
@@ -20,9 +22,9 @@ go_sdk = use_extension("@io_bazel_rules_go//go:extensions.bzl", "go_sdk")
 #)
 go_deps = use_extension("//:extensions.bzl", "go_deps")
 go_deps.from_file(go_mod = "//:go.mod")
+
 # Register the Go SDK installed on the host.
 go_sdk.host()
 
-
-write_to_sources = use_extension("//:write_to_sources.bzl", "sh_binary")
-write_to_sources.write_file()
+#write_to_sources = use_extension("//:write_to_sources.bzl", "sh_binary")
+#write_to_sources.write_file()
